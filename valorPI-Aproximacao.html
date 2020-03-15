@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Valor de PI - Aproximação de arquimedes por polígonos</title>
+</head>
+
+<body>
+
+<script type="application/javascript">
+
+function calculoPI() {
+	var raio = 1;
+	var k = 0;
+	var n = 0;
+	var numeroLadosPoligonoInicial = 6;
+	var tamanhoLadoPoligonoInicial = 1;
+	var erroMaximo = Math.pow(10,-23); 
+	var erroInicial = 0.5;
+	var perimetroPoligonoExterno = 0;
+	var perimetroPoligonoInterno = 0;
+	var diametro = 0;
+	var apotema = 0 ;
+	var valorAproximadoPI = 0 ;
+	
+	document.write('Qtdade Lados --  Apótema--------------- Tamanho Lado ---------------  PeriInterno ---------------  PeriExterno   ---------------   PI Aproximado --------Erro'+'<br>');
+
+	while ( erroInicial > erroMaximo ) {
+	
+		n = numeroLadosPoligonoInicial * Math.pow(2,k);
+		document.write(n+' ->->');	
+		
+		diametro = 2*raio;	
+	
+		apotema = Math.sqrt (  Math.pow(raio,2) - Math.pow(tamanhoLadoPoligonoInicial/2,2) );
+		document.write(apotema+' ->->');	
+		
+		document.write(tamanhoLadoPoligonoInicial+' ->->');	
+
+		perimetroPoligonoInterno = n * tamanhoLadoPoligonoInicial;	
+		document.write(perimetroPoligonoInterno+' ->->');
+		
+		perimetroPoligonoExterno = perimetroPoligonoInterno * (raio/apotema);
+		document.write(perimetroPoligonoExterno+' ->->');	
+		
+		valorAproximadoPI = ( (( perimetroPoligonoExterno + perimetroPoligonoInterno )/2)/(diametro) ); 
+		document.write(valorAproximadoPI+' ->->');
+		
+		tamanhoLadoPoligonoInicial = Math.sqrt( Math.pow(raio - apotema,2) + Math.pow(tamanhoLadoPoligonoInicial/2,2) );	
+		
+		erroInicial = (perimetroPoligonoExterno - perimetroPoligonoInterno)/2/diametro;
+		document.write(erroInicial+'<br>');		
+
+		k = k + 1;
+	}
+	
+	return valorAproximadoPI;
+}
+
+document.write('Valor aproximado de PI: ' + calculoPI());
+
+</script>
+
+</body>
+</html>
